@@ -6,6 +6,7 @@ import * as dotenv from "dotenv";
 import authRouter from "./routes/authRoutes";
 import storeRouter from "./routes/storeRoutes";
 import couponRouter from "./routes/couponRoutes";
+import feedbackRouter from "./routes/feedbackRoutes";
 dotenv.config();
 
 const app = express();
@@ -31,6 +32,7 @@ mongoose.connect(process.env.DATABASE, {
 app.use("/api/v1/auth" , authRouter);
 app.use("/api/v1/stores" , storeRouter);
 app.use("/api/v1/coupons" , couponRouter);
+app.use("/api/v1/feedbacks" , feedbackRouter);
 
 //start server
 const PORT = process.env.PORT ;
