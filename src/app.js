@@ -7,6 +7,8 @@ import authRouter from "./routes/authRoutes";
 import storeRouter from "./routes/storeRoutes";
 import couponRouter from "./routes/couponRoutes";
 import feedbackRouter from "./routes/feedbackRoutes";
+import offerRouter from "./routes/offerRoutes";
+import trendingRouter from "./routes/trendingRoutes";
 dotenv.config();
 
 const app = express();
@@ -33,6 +35,8 @@ app.use("/api/v1/auth" , authRouter);
 app.use("/api/v1/stores" , storeRouter);
 app.use("/api/v1/coupons" , couponRouter);
 app.use("/api/v1/feedbacks" , feedbackRouter);
+app.use("/api/v1/offer" , offerRouter);
+app.use("/api/v1/trending" , trendingRouter);
 
 //start server
 const PORT = process.env.PORT ;
