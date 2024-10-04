@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const feedbackModelSchema = new mongoose.Schema({
-    name : {type: String, required: true, default: ""},
-    email : {type: String, required: true, default: ""},
-    contactNumber : {type: String, required: true, default: ""},
-    subject : {type: String, required: true, default: ""},
-    message : {type: String, required: true, default: ""},
+    name : {type: String, required: false, default: ""},
+    email : {type: String, required: false, default: ""},
+    contactNumber : {type: String, required: false, default: ""},
+    subject : {type: String, required: false, default: ""},
+    message : {type: String, required: false, default: ""},
     imgUrl : {type: String, required: false, default: ""},
 })
 
