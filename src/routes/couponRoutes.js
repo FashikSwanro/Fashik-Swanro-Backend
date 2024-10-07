@@ -1,5 +1,5 @@
 import express from 'express';
-import { addCoupon, getAllCoupons } from '../controllers/couponControllers';
+import { addCoupon, deleteCoupon, getAllCoupons } from '../controllers/couponControllers';
 
 
 const couponRouter = express.Router();
@@ -9,6 +9,9 @@ couponRouter.post("/add" , addCoupon);
 
 // get routers
 couponRouter.get("/get" , getAllCoupons);
+
+// delete routers
+couponRouter.delete("/delete" , deleteCoupon);
 
 
 export default couponRouter;
