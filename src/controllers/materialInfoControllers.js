@@ -3,7 +3,7 @@ import { MaterialInfo } from "../models/materialInfoModels";
 const addMaterial = async (req, res) => {
     try {
         const { name, description, price, imgUrl, type } = req.body
-        if (!(name && description && price && imgUrl && type) ) {
+        if (!(name && description && price && imgUrl && type)) {
             res.status(400).send({ message: "All Inputs are Required" })
         }
         const material = new MaterialInfo(req.body);
@@ -25,7 +25,18 @@ const getMaterials = async (req, res) => {
     }
 }
 
+const deleteMaterial = async (req, res) => {
+    try {
+        const { name } = req.query
+        const deleteRes = await MaterialInfo.deleteOne({ name: name });
+        res.status(200).send(deleteRes);
+    } catch (error) {
+        return res.status(500).send({ message: `"Failed to Find Material"  : ${error}` });
+    }
+}
+
 export {
-    addMaterial ,
-    getMaterials
+    addMaterial,
+    getMaterials,
+    deleteMaterial
 }
