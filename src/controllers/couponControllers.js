@@ -30,8 +30,8 @@ const getAllCoupons = async (req, res) => {
 
 const deleteCoupon = async ( req , res ) => {
     try{
-        const { couponCode } = req.query
-        const deleteRes = await Coupon.deleteOne({couponCode : couponCode});
+        const { id } = req.query
+        const deleteRes = await Coupon.deleteOne({_id : id});
         res.status(200).send(deleteRes);
     }catch (error) {
         return res.status(500).send({ message: `"Failed to Find Coupon"  : ${error}` });

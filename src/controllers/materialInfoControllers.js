@@ -27,8 +27,8 @@ const getMaterials = async (req, res) => {
 
 const deleteMaterial = async (req, res) => {
     try {
-        const { name } = req.query
-        const deleteRes = await MaterialInfo.deleteOne({ name: name });
+        const { id } = req.query
+        const deleteRes = await MaterialInfo.deleteOne({_id : id});
         res.status(200).send(deleteRes);
     } catch (error) {
         return res.status(500).send({ message: `"Failed to Find Material"  : ${error}` });
