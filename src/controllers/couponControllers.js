@@ -30,8 +30,7 @@ const getAllCoupons = async (req, res) => {
 
 const deleteCoupon = async ( req , res ) => {
     try{
-        const { couponCode } = req.body
-        console.log(req.body);
+        const { couponCode } = req.query
         const deleteRes = await Coupon.deleteOne({couponCode : couponCode});
         res.status(200).send(deleteRes);
     }catch (error) {
