@@ -84,6 +84,19 @@ const userProfile = async (req, res) => {
     }
 }
 
+const getAllUsers = async ( req , res ) => {
+    try{
+        const users = await User.find({});
+        if (users.length == 0) {
+            res.status(400).send({ message: "No User Present" })
+        }
+
+        res.status(200).send(users);
+    }catch (error) {
+        return res.status(400).send({ message: `"Failed to Get Users"  : ${error}` });
+    }
+}
+
 const sendOtp = async (req, res) => {
     try {
         const { phoneNumber } = req.query
@@ -117,5 +130,6 @@ export {
     createUserProfile,
     userProfile,
     sendOtp,
-    verifyOtp
+    verifyOtp,
+    getAllUsers
 }

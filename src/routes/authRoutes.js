@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUserProfile, getToken, sendOtp, userProfile, verifyOtp } from '../controllers/authControllers';
+import { createUserProfile, getAllUsers, getToken, sendOtp, userProfile, verifyOtp } from '../controllers/authControllers';
 import { verifyToken } from '../middlewares/authMiddlewares';
 
 const authRouter = express.Router();
@@ -12,5 +12,6 @@ authRouter.post("/verifyOtp" , verifyOtp)
 // get routers
 authRouter.get("/getToken" , getToken );
 authRouter.get("/profile" , verifyToken , userProfile);
+authRouter.get("/allUsers" , getAllUsers)
 
 export default authRouter;
