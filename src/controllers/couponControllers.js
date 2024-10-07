@@ -2,8 +2,8 @@ import { Coupon } from "../models/couponModels";
 
 const addCoupon = async (req, res) => {
     try {
-        const { couponCode , discount } = req.body
-        if ( !( couponCode && discount ) ){
+        const { couponCode, discount } = req.body
+        if (!(couponCode && discount)) {
             res.status(400).send({ message: "All Inputs are Required" })
         }
         const coupon = new Coupon(req.body);
@@ -15,9 +15,12 @@ const addCoupon = async (req, res) => {
     }
 }
 
-const getAllCoupons = async( req , res ) => {
+const getAllCoupons = async (req, res) => {
     try {
-        const response = await Coupon.find();
+        const { special } = req.query;
+        const response = special === false
+            ? await Coupon.find({special : special})
+            : await Coupon.find({});
         res.status(200).send(response);
     }
     catch (error) {
@@ -25,7 +28,7 @@ const getAllCoupons = async( req , res ) => {
     }
 }
 
-export{
-    addCoupon ,
+export {
+    addCoupon,
     getAllCoupons
 }
