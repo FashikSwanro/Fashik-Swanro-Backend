@@ -3,11 +3,11 @@ import { Trending } from "../models/trendingModels";
 
 const addTrending = async (req, res) => {
     try {
-        const { categoriesImgUriList , slider1ImgUriList , slider2ImgUriList } = req.body
-        if ( !( categoriesImgUriList , slider1ImgUriList , slider2ImgUriList ) ){
+        const { imgUriList , type } = req.body
+        if ( !( imgUriList && type ) ){
             res.status(400).send({ message: "All Inputs are Required" })
         }
-        const deleteRes = await Trending.deleteMany({})
+        const deleteRes = await Trending.deleteMany({type : type})
         const trending = new Trending(req.body);
         const response = await trending.save();
         res.status(200).send({response , deleteRes});
@@ -19,7 +19,7 @@ const addTrending = async (req, res) => {
 
 const getTrending = async( req , res ) => {
     try {
-        const response = await Trending.findOne({});
+        const response = await Trending.find({});
         res.status(200).send(response);
     }
     catch (error) {
