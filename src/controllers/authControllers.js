@@ -33,9 +33,10 @@ const createUserProfile = async (req, res) => {
     try {
         const { firstName, lastName, email, phoneNumber, dob, gender } = req.body
 
-        let user = User.findOne(
+        let user = await User.findOne(
             { phoneNumber: phoneNumber }
         )
+        console.log(user);
         if (user) {
             return res.status(400).send({ message: "User Already Exists" });
         }
