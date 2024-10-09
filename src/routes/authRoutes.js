@@ -7,10 +7,10 @@ const authRouter = express.Router();
 // post routers
 authRouter.post("/createUserProfile" , createUserProfile );
 authRouter.post("/sendOtp" , sendOtp);
-authRouter.post("/verifyOtp" , verifyOtp)
+authRouter.post("/verifyOtp" , verifyOtp);
+authRouter.post("/getToken" , getToken );
 
 // get routers
-authRouter.get("/getToken" , getToken );
 authRouter.get("/profile" , verifyToken , userProfile);
 authRouter.get("/allUsers" , getAllUsers)
 
