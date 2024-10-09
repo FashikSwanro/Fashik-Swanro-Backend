@@ -1,7 +1,7 @@
 import { User } from "../models/userModels";
 import jwt from "jsonwebtoken"
 import twilio from "twilio"
-import { countryCode , expiry_duration, sms_text } from "../constants/Constants";
+import { countryCode, expiry_duration, sms_text } from "../constants/Constants";
 
 const getToken = async (req, res) => {
     try {
@@ -29,23 +29,20 @@ const getToken = async (req, res) => {
     }
 }
 
-const createUserProfile = async( req , res ) =>{
+const createUserProfile = async (req, res) => {
     try {
-        const { firstName, lastName, email, phoneNumber, dob , gender} = req.body
+        const { firstName, lastName, email, phoneNumber, dob, gender } = req.body
 
-        let user = User.findOne({
-            $or: [
-                { phoneNumber: phoneNumber },
-                { email: email }
-            ]
-        })
+        let user = User.findOne(
+            { phoneNumber: phoneNumber }
+        )
         if (user) {
             return res.status(400).send({ message: "User Already Exists" });
         }
 
         user = new User({
-            firstName : firstName,
-            lastName : lastName,
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             dob: dob,
             phoneNumber: phoneNumber,
@@ -84,15 +81,15 @@ const userProfile = async (req, res) => {
     }
 }
 
-const getAllUsers = async ( req , res ) => {
-    try{
+const getAllUsers = async (req, res) => {
+    try {
         const users = await User.find({});
         if (users.length == 0) {
             res.status(400).send({ message: "No User Present" })
         }
 
         res.status(200).send(users);
-    }catch (error) {
+    } catch (error) {
         return res.status(400).send({ message: `"Failed to Get Users"  : ${error}` });
     }
 }
@@ -102,8 +99,8 @@ const sendOtp = async (req, res) => {
         const { phoneNumber } = req.body
         const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
         const response = await client.verify.v2.services(process.env.TWILIO_SERVICE_SID)
-            .verifications.create({ channel: sms_text , to: countryCode + phoneNumber});
-        res.status(200).send({ message: `OTP send successfully` , response : response })
+            .verifications.create({ channel: sms_text, to: countryCode + phoneNumber });
+        res.status(200).send({ message: `OTP send successfully`, response: response })
     } catch (error) {
         return res.status(400).send({ message: `"Failed to Send Otp"  : ${error}` });
     }
@@ -119,14 +116,14 @@ const verifyOtp = async (req, res) => {
                 code: code,
                 to: countryCode + phoneNumber,
             });
-        res.status(200).send({ message: `OTP verified successfully` , response : verificationCheck })
+        res.status(200).send({ message: `OTP verified successfully`, response: verificationCheck })
     } catch (error) {
         return res.status(400).send({ message: `"Failed to Verify Otp"  : ${error}` });
     }
 }
 
 export {
-    getToken ,
+    getToken,
     createUserProfile,
     userProfile,
     sendOtp,
