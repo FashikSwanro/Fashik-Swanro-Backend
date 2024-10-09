@@ -9,7 +9,7 @@ const getToken = async (req, res) => {
 
         let userDB = await User.findOne({ phoneNumber: phoneNumber });
         if (!userDB) {
-            res.status(400).send({ message: "No User Exists with this email" })
+            res.status(400).send({ message: "No User Exists with this Number" })
         }
 
         const payload = { user: { _id: userDB._id, email: userDB.email, phoneNumber: userDB.phoneNumber } };
@@ -99,7 +99,7 @@ const getAllUsers = async ( req , res ) => {
 
 const sendOtp = async (req, res) => {
     try {
-        const { phoneNumber } = req.query
+        const { phoneNumber } = req.body
         const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
         const response = await client.verify.v2.services(process.env.TWILIO_SERVICE_SID)
             .verifications.create({ channel: sms_text , to: countryCode + phoneNumber});
@@ -111,7 +111,7 @@ const sendOtp = async (req, res) => {
 
 const verifyOtp = async (req, res) => {
     try {
-        const { phoneNumber, code } = req.query
+        const { phoneNumber, code } = req.body
         const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
         const verificationCheck = await client.verify.v2
             .services(process.env.TWILIO_SERVICE_SID)
