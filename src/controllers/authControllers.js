@@ -22,7 +22,7 @@ const getToken = async (req, res) => {
             }
         })
 
-        return res.status(200).send({ message: "Login Successful", token: userDB.token });
+        return res.status(200).send(userDB);
     }
     catch (error) {
         return res.status(500).send({ message: `"Failed to Login User"  : ${error}` });
@@ -62,7 +62,7 @@ const createUserProfile = async( req , res ) =>{
                 token: userDB.token
             }
         })
-        return res.status(200).send({ message: "Registration Successful", token: userDB.token });
+        return res.status(200).send(userDB);
     }
     catch (error) {
         return res.status(500).send({ message: `"Failed to Register User"  : ${error}` });
