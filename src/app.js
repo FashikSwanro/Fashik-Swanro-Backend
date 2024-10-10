@@ -10,6 +10,7 @@ import feedbackRouter from "./routes/feedbackRoutes";
 import offerRouter from "./routes/offerRoutes";
 import trendingRouter from "./routes/trendingRoutes";
 import materialInfoRouter from "./routes/materialInfoRoutes";
+import orderRouter from "./routes/orderRoutes";
 dotenv.config();
 
 const app = express();
@@ -39,6 +40,7 @@ app.use("/api/v1/feedbacks" , feedbackRouter);
 app.use("/api/v1/offer" , offerRouter);
 app.use("/api/v1/trending" , trendingRouter);
 app.use("/api/v1/material" , materialInfoRouter);
+app.use("/api/v1/orders" , orderRouter);
 
 //start server
 const PORT = process.env.PORT ;
