@@ -95,8 +95,8 @@ const editProfile = async (req, res) => {
             user.email = email;
         }
 
-        if ( !billingAddress ){
-            user.billingAddress = billingAddress
+        if (billingAddress && typeof billingAddress === 'object') {
+            user.billingAddress = billingAddress;
         }
 
         await user.save();
