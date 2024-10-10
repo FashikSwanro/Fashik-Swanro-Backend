@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const addressModelSchema = new mongoose.Schema({
+    firstName: { type: String, required: false, default: "" },
+    lastName: { type: String, required: false, default: "" },
+    phoneNumber: { type: String, required: false, default: "" },
+    email: { type: String, required: false, default: "" },
     city: { type: String, required: false, default: "" },
     state: { type: String, required: false, default: "" },
     country: { type: String, required: false, default: "" },

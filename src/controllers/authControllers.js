@@ -84,14 +84,20 @@ const userProfile = async (req, res) => {
 
 const editProfile = async (req, res) => {
     try {
-        const {_id , firstName , lastName , email} = req.body;
+        const { _id, firstName, lastName, email , billingAddress } = req.body;
         const user = await User.findById(_id);
         if (!user) {
             res.status(400).send({ message: "No Such User Exists" })
         }
-        user.firstName = firstName;
-        user.lastName = lastName;
-        user.email = email;
+        if (!(firstName && lastName && email)) {
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.email = email;
+        }
+
+        if ( !billingAddress ){
+            user.billingAddress = billingAddress
+        }
 
         await user.save();
 

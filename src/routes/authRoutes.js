@@ -1,6 +1,5 @@
 import express from 'express';
 import { createUserProfile, editProfile, getAllUsers, getToken, sendOtp, userProfile, verifyOtp } from '../controllers/authControllers';
-import { verifyToken } from '../middlewares/authMiddlewares';
 
 const authRouter = express.Router();
 
@@ -13,6 +12,6 @@ authRouter.post("/profile" , userProfile);
 authRouter.post("/editProfile" , editProfile);
 
 // get routers
-authRouter.get("/allUsers" , getAllUsers)
+authRouter.get("/allUsers" , getAllUsers);
 
 export default authRouter;
