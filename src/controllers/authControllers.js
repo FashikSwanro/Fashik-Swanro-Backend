@@ -69,11 +69,31 @@ const createUserProfile = async (req, res) => {
 
 const userProfile = async (req, res) => {
     try {
-        const _id = req.user._id;
+        const _id = req.body._id;
         const user = await User.findById(_id);
         if (!user) {
-            res.status(400).send({ message: "Invalid Token" })
+            res.status(400).send({ message: "No User Exists" })
         }
+
+        res.status(200).send(user)
+    }
+    catch (error) {
+        return res.status(500).send({ message: `"Failed to Get User Profile"  : ${error}` });
+    }
+}
+
+const editProfile = async (req, res) => {
+    try {
+        const {_id , firstName , lastName , email} = req.body;
+        const user = await User.findById(_id);
+        if (!user) {
+            res.status(400).send({ message: "No Such User Exists" })
+        }
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.email = email;
+
+        await user.save();
 
         res.status(200).send(user)
     }
@@ -129,5 +149,6 @@ export {
     userProfile,
     sendOtp,
     verifyOtp,
-    getAllUsers
+    getAllUsers,
+    editProfile
 }
