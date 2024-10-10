@@ -21,6 +21,7 @@ const orderModelSchema = new mongoose.Schema({
     subtotal: { type: String, required: false, default: "" },
     gst: { type: String, required: false, default: "" },
     grandTotal: { type: String, required: false, default: "" },
+    amount: { type: String, required: false, default: "" },
     date: { type: String, required: false, default: "" },
     transactionId: { type: String, required: false, default: "" },
     status: { type: String, required: false, default: "placed" },
