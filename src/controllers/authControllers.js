@@ -89,7 +89,8 @@ const editProfile = async (req, res) => {
         if (!user) {
             res.status(400).send({ message: "No Such User Exists" })
         }
-        if (!(firstName && lastName && email)) {
+        
+        if (firstName && lastName && email) {
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
