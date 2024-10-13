@@ -33,7 +33,7 @@ const createUserProfile = async (req, res) => {
     try {
         const { firstName, lastName, email, phoneNumber, dob, gender , fcmToken } = req.body
 
-        let user = await User.findOne(
+        var user = await User.findOne(
             { phoneNumber: phoneNumber }
         )
         console.log(user);
