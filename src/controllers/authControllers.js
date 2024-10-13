@@ -37,7 +37,7 @@ const createUserProfile = async (req, res) => {
             { phoneNumber: phoneNumber }
         )
         console.log(user);
-        if (user) {
+        if (user != null) {
             return res.status(400).send({ message: "User Already Exists" });
         }
 
