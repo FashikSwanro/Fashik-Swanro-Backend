@@ -31,42 +31,43 @@ const getToken = async (req, res) => {
 
 const createUserProfile = async (req, res) => {
     try {
-        const { firstName, lastName, email, phoneNumber, dob, gender , fcmToken } = req.body
+        const { firstName, lastName, email, phoneNumber, dob, gender, fcmToken } = req.body;
 
-        var user = await User.findOne(
-            { phoneNumber: phoneNumber }
-        )
-        console.log(user);
+        const user = await User.findOne({ phoneNumber: phoneNumber });
         if (user != null) {
             return res.status(400).send({ message: "User Already Exists" });
         }
 
-        user = new User({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            dob: dob,
-            phoneNumber: phoneNumber,
-            gender: gender,
-            fcmToken : fcmToken
+        const newUser = new User({
+            firstName,
+            lastName,
+            email,
+            dob,
+            phoneNumber,
+            gender,
+            fcmToken
         });
 
-        const userDB = await user.save();
-        const payload = { user: { _id: userDB._id, email: userDB.email, phoneNumber: userDB.phoneNumber } };
-        const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: expiry_duration });
-        userDB.token = token
+        const userDB = await newUser.save();
 
-        const updateToken = await User.updateOne({ _id: userDB._id }, {
-            $set: {
-                token: userDB.token
-            }
-        })
-        return res.status(200).send(userDB);
+        const payload = {
+            user: { _id: userDB._id, email: userDB.email, phoneNumber: userDB.phoneNumber }
+        };
+        const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: expiry_duration });
+        userDB.token = token;
+
+        await User.updateOne({ _id: userDB._id }, { $set: { token: userDB.token } });
+
+        return res.status(200).send(userDB); 
     }
     catch (error) {
-        return res.status(500).send({ message: `"Failed to Register User"  : ${error}` });
+        if (!res.headersSent) {
+            return res.status(500).send({ message: `"Failed to Register User"  : ${error}` });
+        }
+        console.error("Headers were already sent", error);
     }
-}
+};
+
 
 const userProfile = async (req, res) => {
     try {
