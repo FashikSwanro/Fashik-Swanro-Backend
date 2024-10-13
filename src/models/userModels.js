@@ -20,6 +20,7 @@ const userModelSchema = new mongoose.Schema({
     phoneNumber: { type: String, required: false, default: "" },
     dob: { type: String, required: false, default: "" },
     gender: { type: String, required: false, default: "" },
+    fcmToken: { type: String, required: false, default: "" },
     billingAddress: { type: addressModelSchema, required: false, default: {} },
     shippingAddress: { type: addressModelSchema, required: false, default: {} },
 })

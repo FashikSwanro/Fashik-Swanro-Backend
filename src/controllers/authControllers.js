@@ -31,7 +31,7 @@ const getToken = async (req, res) => {
 
 const createUserProfile = async (req, res) => {
     try {
-        const { firstName, lastName, email, phoneNumber, dob, gender } = req.body
+        const { firstName, lastName, email, phoneNumber, dob, gender , fcmToken } = req.body
 
         let user = await User.findOne(
             { phoneNumber: phoneNumber }
@@ -47,7 +47,8 @@ const createUserProfile = async (req, res) => {
             email: email,
             dob: dob,
             phoneNumber: phoneNumber,
-            gender: gender
+            gender: gender,
+            fcmToken : fcmToken
         });
 
         const userDB = await user.save();
