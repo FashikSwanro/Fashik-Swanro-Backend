@@ -25,7 +25,9 @@ const getToken = async (req, res) => {
         return res.status(200).send(userDB);
     }
     catch (error) {
-        return res.status(500).send({ message: `"Failed to Login User"  : ${error}` });
+        if (!res.headersSent) {
+            return res.status(500).send({ message: `"Failed to Get Token"  : ${error}` });
+        }
     }
 }
 
