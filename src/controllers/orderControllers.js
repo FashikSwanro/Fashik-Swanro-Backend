@@ -11,6 +11,17 @@ const addOrder = async (req, res) => {
     }
 }
 
+const editOrder = async (req, res) => {
+    try {
+        const {order} = req.body
+        const response = await order.save();
+        res.status(200).send(response);
+    }
+    catch (error) {
+        return res.status(500).send({ message: `"Failed to Add Order"  : ${error}` });
+    }
+}
+
 const getAllOrders = async (req, res) => {
     try {
         const response = await Order.find({});
@@ -35,5 +46,6 @@ const getOrders = async (req, res) => {
 export {
     getAllOrders ,
     addOrder,
-    getOrders
+    getOrders ,
+    editOrder
 }
